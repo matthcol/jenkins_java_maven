@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(name: 'URL', description: 'URL Java Project to Build')
         string(name: 'BRANCH', defaultValue: 'main', description: 'Branch to Build')
-        choice(name: 'JAVA_VERSION', choices: ['8', '11', '17'], description: 'Java Version')
+        choice(name: 'JAVA_VERSION', choices: ['11', '17'], description: 'Java Version')
     }
 
     tools {
@@ -14,11 +14,12 @@ pipeline {
     }
 
     stages {
-        stage('Git') {
+        stage('Fetch') {
             steps {
                 // Get some code from a GitHub repository
                 git url: "${params.URL}",
                     branch: "${params.BRANCH}"
+                sh "change_java_version.sh ${params.JAVA_VERSION}"
             }
         }
         stage('Compile') {
