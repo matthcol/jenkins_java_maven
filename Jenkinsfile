@@ -19,7 +19,7 @@ pipeline {
                 // Get some code from a GitHub repository
                 git url: "${params.URL}",
                     branch: "${params.BRANCH}"
-                sh "./change_java_version.sh ${params.JAVA_VERSION}"
+                sh "../change_java_version.sh ${params.JAVA_VERSION}"
             }
         }
         stage('Compile') {
